@@ -16,6 +16,20 @@
     "forceConsistentCasingInFileNames": true,
     "noImplicitAny": false,
     "strictBindCallApply": false,
-    "noFallthroughCasesInSwitch": false
+    "noFallthroughCasesInSwitch": false,
+    "paths": {
+      "blossom/common": [
+        "libs/common/src"
+      ],
+      "blossom/common/*": [
+        "libs/common/src/*"
+      ],
+      "blossom/contracts": [
+        "libs/contracts/src"
+      ],
+      "blossom/contracts/*": [
+        "libs/contracts/src/*"
+      ]
+    }
   }
 }
