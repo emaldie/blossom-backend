@@ -70,10 +70,10 @@ services:
       #   condition: service_healthy
       # rabbitmq:
       #   condition: service_healthy
-      # auth:
-      #   condition: service_started
-      # users:
-      #   condition: service_started
+      auth:
+        condition: service_started
+      users:
+        condition: service_started
     volumes:
       - .:/usr/src/app
       - /usr/src/app/node_modules
@@ -81,29 +81,29 @@ services:
       - '3000:3000'
     restart: unless-stopped
 
-  # auth:
-  #   build:
-  #     context: .
-  #     dockerfile: ./apps/auth/Dockerfile
-  #     target: development
-  #   command: npm run start:dev auth
-  #   env_file: ./apps/auth/.env
-  #   volumes:
-  #     - .:/usr/src/app
-  #     - /usr/src/app/node_modules
-  #   restart: unless-stopped
+  auth:
+    build:
+      context: .
+      dockerfile: ./apps/auth/Dockerfile
+      target: development
+    command: npm run start:dev auth
+    env_file: ./apps/auth/.env
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    restart: unless-stopped
 
-  # users:
-  #   build:
-  #     context: .
-  #     dockerfile: ./apps/users/Dockerfile
-  #     target: development
-  #   command: npm run start:dev users
-  #   env_file: ./apps/users/.env
-  #   volumes:
-  #     - .:/usr/src/app
-  #     - /usr/src/app/node_modules
-  #   restart: unless-stopped
+  users:
+    build:
+      context: .
+      dockerfile: ./apps/users/Dockerfile
+      target: development
+    command: npm run start:dev users
+    env_file: ./apps/users/.env
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    restart: unless-stopped
 
 volumes:
   pg_data:
