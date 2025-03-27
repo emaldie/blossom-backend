@@ -1,17 +1,20 @@
 # Blossom Backend
 
-This is the backend service for **Blossom**, a flower shop application, built with **NestJS** and **TypeScript**.
+This is the backend service for [**Blossom**](https://github.com/emaldie/blossom-frontend), a flower shop application, built with **NestJS** and **TypeScript**.
 
 ## 🚀 Features (work in progress..)
-- User authentication & authorization (JWT)
+- User authentication & authorization (JWT stored in MongoDB)
 - Product management (flowers, bouquets, etc.)
 - Order processing & checkout
 - PostgreSQL database with Prisma ORM
+- Server-side caching strategy for improved performance 
 
 ## 📦 Tech Stack
 - **NestJS** (Node.js framework)
 - **TypeScript**
-- **PostgreSQL** (Database)
+- **PostgreSQL** (SQL-Database)
+- **MongoDB** (No-SQL-Database)
+- **Redis** (Server-side caching)
 - **Prisma** (ORM)
 - **Docker** (Containerization)
 - **RabbitMQ** (Message-broker for microservices)
@@ -31,18 +34,18 @@ This is the backend service for **Blossom**, a flower shop application, built wi
 
 3. Update `.env` with your database credentials following the example below.
    ```sh
-   MONGODB_URI = 
-    REDIS_HOST =
-    REDIS_PORT =
-    DATABASE_URL = 
-    POSTGRES_USER =
-    POSTGRES_PASSWORD =
-    POSTGRES_DB =
-    RMQ_USERS_QUEUE =
-    RMQ_AUTH_QUEUE =
-    RMQ_URI =
-    JWT_ACCESS_SECRET =
-    JWT_REFRESH_SECRET =
+  MONGODB_URI = 
+  REDIS_HOST =
+  REDIS_PORT =
+  DATABASE_URL = 
+  POSTGRES_USER =
+  POSTGRES_PASSWORD =
+  POSTGRES_DB =
+  RMQ_USERS_QUEUE =
+  RMQ_AUTH_QUEUE =
+  RMQ_URI =
+  JWT_ACCESS_SECRET =
+  JWT_REFRESH_SECRET =
    ```
 
 4. Run database migrations:
