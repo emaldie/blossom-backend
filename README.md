@@ -34,18 +34,18 @@ This is the backend service for [**Blossom**](https://github.com/emaldie/blossom
 
 3. Update `.env` with your database credentials following the example below.
    ```sh
-  MONGODB_URI = 
-  REDIS_HOST =
-  REDIS_PORT =
-  DATABASE_URL = 
-  POSTGRES_USER =
-  POSTGRES_PASSWORD =
-  POSTGRES_DB =
-  RMQ_USERS_QUEUE =
-  RMQ_AUTH_QUEUE =
-  RMQ_URI =
-  JWT_ACCESS_SECRET =
-  JWT_REFRESH_SECRET =
+    MONGODB_URI = 
+    REDIS_HOST =
+    REDIS_PORT =
+    DATABASE_URL = 
+    POSTGRES_USER =
+    POSTGRES_PASSWORD =
+    POSTGRES_DB =
+    RMQ_USERS_QUEUE =
+    RMQ_AUTH_QUEUE =
+    RMQ_URI =
+    JWT_ACCESS_SECRET =
+    JWT_REFRESH_SECRET =
    ```
 
 4. Run database migrations:
