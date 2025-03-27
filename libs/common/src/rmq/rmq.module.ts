@@ -22,7 +22,7 @@ export class RmqModule {
             useFactory: (configService: ConfigService) => ({
               transport: Transport.RMQ,
               options: {
-                urls: [configService.getOrThrow<string>(`RMQ_${name}_URI`)],
+                urls: [configService.getOrThrow<string>(`RMQ_URI`)],
                 queue: configService.getOrThrow<string>(`RMQ_${name}_QUEUE`),
               },
             }),
