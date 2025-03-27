@@ -16,43 +16,43 @@ services:
       retries: 5
     restart: unless-stopped
 
-  # mongodb:
-  #   image: mongo:6-jammy
-  #   ports:
-  #     - '27017:27017'
-  #   volumes:
-  #     - mongodb_data:/data
-  #   healthcheck:
-  #     test: echo 'db.runCommand("ping").ok'
-  #     interval: 2s
-  #     timeout: 5s
-  #     retries: 5
-  #   restart: unless-stopped
+  mongodb:
+    image: mongo:6-jammy
+    ports:
+      - '27017:27017'
+    volumes:
+      - mongodb_data:/data
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok'
+      interval: 2s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
 
-  # redis:
-  #   image: redis:8.0-M02-alpine
-  #   ports:
-  #     - '6379:6379'
-  #   volumes:
-  #     - redis_data:/data
-  #   healthcheck:
-  #     test: ['CMD', 'redis-cli', 'ping']
-  #     interval: 2s
-  #     timeout: 5s
-  #     retries: 5
-  #   restart: unless-stopped
+  redis:
+    image: redis:8.0-M02-alpine
+    ports:
+      - '6379:6379'
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ['CMD', 'redis-cli', 'ping']
+      interval: 2s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
 
-  # rabbitmq:
-  #   image: rabbitmq
-  #   ports:
-  #     - '5672:5672'
-  #   volumes:
-  #     - rmq_data:/var/lib/rabbitmq
-  #   healthcheck:
-  #     test: ['CMD', 'rabbitmqctl', 'status']
-  #     interval: 2s
-  #     timeout: 5s
-  #     retries: 5
+  rabbitmq:
+    image: rabbitmq
+    ports:
+      - '5672:5672'
+    volumes:
+      - rmq_data:/var/lib/rabbitmq
+    healthcheck:
+      test: ['CMD', 'rabbitmqctl', 'status']
+      interval: 2s
+      timeout: 5s
+      retries: 5
 
   api-gateway:
     build:
@@ -64,12 +64,12 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
-      # mongodb:
-      #   condition: service_healthy
-      # redis:
-      #   condition: service_healthy
-      # rabbitmq:
-      #   condition: service_healthy
+      mongodb:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
       auth:
         condition: service_started
       users:
@@ -107,6 +107,6 @@ services:
 
 volumes:
   pg_data:
-  # mongodb_data:
-  # redis_data:
-  # rmq_data:
+  mongodb_data:
+  redis_data:
+  rmq_data:
