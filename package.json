@@ -81,6 +81,8 @@
       "<rootDir>/libs/"
     ],
     "moduleNameMapper": {
+      "^@blossom/common(|/.*)$": "<rootDir>/libs/common/src/$1",
+      "^@blossom/contracts(|/.*)$": "<rootDir>/libs/contracts/src/$1",
       "^blossom/common(|/.*)$": "<rootDir>/libs/common/src/$1",
       "^blossom/contracts(|/.*)$": "<rootDir>/libs/contracts/src/$1"
     }
