@@ -66,10 +66,11 @@ This is the backend service for [**Blossom**](https://github.com/emaldie/blossom
 7. The server should be ready to accept requests :)   
 
 ## 📖 API Documentation
-Swagger UI isn't available yet. Working on it :)
-<!-- ```
-http://localhost:3000/api
-``` -->
+Swagger UI is available at:
+```
+http://localhost:3000/swagger
+```
+Working on it :)
 
 ## 🛠 Available Scripts
 - `docker compose up --build` – Start the microservices

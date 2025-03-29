@@ -1,12 +1,18 @@
-import { OmitType } from '@nestjs/mapped-types';
-import { UserDto } from './user.dto';
 import { ApiProperty } from '@nestjs/swagger';
-import { IsString } from 'class-validator';
+import { IsDateString, IsNumber, IsString } from 'class-validator';
 
-export class CreateUserDto extends OmitType(UserDto, [
-  'created_at',
-  'id' as const,
-]) {
+export class UserDto {
+  @ApiProperty({ example: '1', description: 'User id' })
+  @IsNumber()
+  id: number;
+
+  @ApiProperty({
+    example: '2025-03-29T14:30:00Z',
+    description: 'The date user was created at',
+  })
+  @IsDateString()
+  created_at: Date;
+
   @ApiProperty({ example: 'John Doe', description: 'User name' })
   @IsString()
   name: string;
