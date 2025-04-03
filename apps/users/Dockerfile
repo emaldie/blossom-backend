@@ -7,6 +7,9 @@ COPY --chown=node:node package*.json ./
 RUN npm cache clean --force
 RUN npm ci
 
+COPY prisma ./prisma/
+RUN npx prisma generate
+
 COPY --chown=node:node . .
 
 RUN npm run build
@@ -26,4 +29,4 @@ COPY . .
 
 COPY --chown=node:node --from=development /usr/src/app/dist ./dist
 
-CMD ["node", "dist/apps/api-gateway/main"]
+CMD ["node", "dist/apps/users/main"]

@@ -21,7 +21,6 @@ export class UsersController {
 
   @Post()
   async create(@Body() createUserDto: CreateUserDto) {
-    console.log('1 step');
     return this.usersService.create(createUserDto);
   }
 

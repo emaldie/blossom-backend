@@ -54,17 +54,18 @@ services:
       timeout: 5s
       retries: 5
 
-  auth:
-    build:
-      context: .
-      dockerfile: ./apps/auth/Dockerfile
-      target: development
-    command: npm run start:dev auth
-    env_file: ./apps/auth/.env
-    volumes:
-      - .:/usr/src/app
-      - /usr/src/app/node_modules
-    restart: unless-stopped
+  # auth:
+  #   build:
+  #     context: .
+  #     dockerfile: ./apps/auth/Dockerfile
+  #     target: development
+  #   command: npm run start:dev auth
+  #   env_file: ./apps/auth/.env
+  #   volumes:
+  #     - .:/usr/src/app
+  #     - /usr/src/app/node_modules
+  #     - /usr/src/app/prisma
+  #   restart: unless-stopped
 
   users:
     build:
@@ -76,6 +77,7 @@ services:
     volumes:
       - .:/usr/src/app
       - /usr/src/app/node_modules
+      - /usr/src/app/prisma
     restart: unless-stopped
 
   api-gateway:
@@ -94,8 +96,8 @@ services:
         condition: service_healthy
       rabbitmq:
         condition: service_healthy
-      auth:
-        condition: service_started
+      # auth:
+      #   condition: service_started
       users:
         condition: service_started
     volumes:

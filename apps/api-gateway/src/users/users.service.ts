@@ -11,7 +11,6 @@ export class UsersService {
     @Inject(USERS_SERVICE) private readonly usersClient: ClientProxy,
   ) {}
   async create(createUserDto: CreateUserDto) {
-    console.log('2 step');
     return await lastValueFrom(
       this.usersClient.send<UserDto>(USERS_PATTERNS.CREATE, createUserDto),
     );
