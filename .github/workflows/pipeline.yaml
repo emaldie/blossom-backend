@@ -1,9 +1,10 @@
 name: CI #/CD not yet:)
 
-push:
-    branches: [main]
+on:
+  push:
+      branches: [main]
   pull_request:
-    branches: [main]
+      branches: [main]
 
 jobs:
 
@@ -20,7 +21,7 @@ jobs:
           name: lcov.info
           path: coverage/lcov.info
 
-    build-api-gateway:
+  build-api-gateway:
     runs-on: ubuntu-latest
     strategy:
       matrix:
