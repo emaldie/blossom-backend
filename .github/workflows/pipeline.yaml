@@ -1,9 +1,11 @@
 name: CI #/CD not yet:)
 
 push:
-    branches: [main]
+    branches: 
+      - main
   pull_request:
-    branches: [main]
+    branches: 
+      - main
 
 jobs:
 
