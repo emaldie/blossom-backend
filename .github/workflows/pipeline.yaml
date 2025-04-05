@@ -28,7 +28,6 @@ jobs:
         uses: actions/checkout@v4
       - name: install dependencies and run integration and unit test  
         run: npm install && npm run test
-      - uses: actions/upload-artifact@v4
 
   build-api-gateway:
     runs-on: ubuntu-latest
