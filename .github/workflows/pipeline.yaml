@@ -29,25 +29,22 @@ jobs:
       - name: install dependencies and run integration and unit test  
         run: npm install && npm run test
       - uses: actions/upload-artifact@v4
-        with:
-          name: lcov.info
-          path: coverage/lcov.info
 
-    build-api-gateway:
-      runs-on: ubuntu-latest
-      strategy:
-        matrix:
-          node-version: [18.x, 20.x, 22.x]
-      steps:
-        - uses: actions/checkout@v4
-        - name: Use Node.js ${{ matrix.node-version }}
-          uses: actions/setup-node@v4
-          with:
-            node-version: ${{ matrix.node-version }}
-            cache: 'npm'
-        - run: npm ci
-        - working-directory: ./apps/api-gateway
-          run: npm run build
+  build-api-gateway:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x, 22.x]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+      - run: npm ci
+      - working-directory: ./apps/api-gateway
+        run: npm run build
 
   build-users:
     runs-on: ubuntu-latest
