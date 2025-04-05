@@ -2,7 +2,11 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import { UsersModule } from '../src/users.module';
 import { PrismaService } from '@blossom/common';
-import { CreateUserDto, UpdateUserDto, USERS_PATTERNS } from '@blossom/contracts';
+import {
+  CreateUserDto,
+  UpdateUserDto,
+  USERS_PATTERNS,
+} from '@blossom/contracts';
 import { Prisma } from '@prisma/client';
 import * as bcrypt from 'bcrypt';
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
@@ -12,8 +16,10 @@ import { RedisModuleMock } from '@blossom/common/redis/redis.module.mock';
 // Mock bcrypt
 jest.mock('bcrypt', () => ({
   hash: jest.fn().mockImplementation((password, saltRounds) => {
-    return Promise.resolve(`$2b$${saltRounds}$SeTm07glhmcV/i9nC4P8IOjLY4XTbXHDxV8jlufgVxQri2iRiOpnW`);
-  })
+    return Promise.resolve(
+      `$2b$${saltRounds}$SeTm07glhmcV/i9nC4P8IOjLY4XTbXHDxV8jlufgVxQri2iRiOpnW`,
+    );
+  }),
 }));
 
 describe('Users Microservice (e2e)', () => {
@@ -68,7 +74,7 @@ describe('Users Microservice (e2e)', () => {
         urls: ['amqp://localhost:5672'],
         queue: 'users_queue',
         queueOptions: {
-          durable: false
+          durable: false,
         },
       },
     });
@@ -101,14 +107,18 @@ describe('Users Microservice (e2e)', () => {
       jest.spyOn(Date.prototype, 'toISOString').mockReturnValue(currentDate);
       mockPrismaService.user.create.mockResolvedValue(mockUser);
 
-      const result = await app.get('USERS_SERVICE').send(USERS_PATTERNS.CREATE, createUserDto).toPromise();
+      const result = await app
+        .get('USERS_SERVICE')
+        .send(USERS_PATTERNS.CREATE, createUserDto)
+        .toPromise();
 
       expect(bcrypt.hash).toHaveBeenCalledWith('123456789', 10);
       expect(prismaService.user.create).toHaveBeenCalledWith({
         data: {
           name: createUserDto.name,
           email: createUserDto.email,
-          password: '$2b$10$SeTm07glhmcV/i9nC4P8IOjLY4XTbXHDxV8jlufgVxQri2iRiOpnW',
+          password:
+            '$2b$10$SeTm07glhmcV/i9nC4P8IOjLY4XTbXHDxV8jlufgVxQri2iRiOpnW',
           created_at: currentDate,
         },
       });
@@ -126,7 +136,10 @@ describe('Users Microservice (e2e)', () => {
       jest.spyOn(console, 'log').mockImplementation(() => {});
       mockPrismaService.user.create.mockRejectedValue(error);
 
-      const result = await app.get('USERS_SERVICE').send(USERS_PATTERNS.CREATE, createUserDto).toPromise();
+      const result = await app
+        .get('USERS_SERVICE')
+        .send(USERS_PATTERNS.CREATE, createUserDto)
+        .toPromise();
 
       expect(console.log).toHaveBeenCalledWith(error);
       expect(result).toBeUndefined();
@@ -137,7 +150,10 @@ describe('Users Microservice (e2e)', () => {
     it('should return all users', async () => {
       mockPrismaService.user.findMany.mockResolvedValue(mockUsers);
 
-      const result = await app.get('USERS_SERVICE').send(USERS_PATTERNS.FIND_ALL, {}).toPromise();
+      const result = await app
+        .get('USERS_SERVICE')
+        .send(USERS_PATTERNS.FIND_ALL, {})
+        .toPromise();
 
       expect(prismaService.user.findMany).toHaveBeenCalled();
       expect(result).toEqual(mockUsers);
@@ -150,7 +166,10 @@ describe('Users Microservice (e2e)', () => {
 
       mockPrismaService.user.findUniqueOrThrow.mockResolvedValue(mockUser);
 
-      const result = await app.get('USERS_SERVICE').send(USERS_PATTERNS.FIND_ONE, findOneUserDto).toPromise();
+      const result = await app
+        .get('USERS_SERVICE')
+        .send(USERS_PATTERNS.FIND_ONE, findOneUserDto)
+        .toPromise();
 
       expect(prismaService.user.findUniqueOrThrow).toHaveBeenCalledWith({
         where: findOneUserDto,
@@ -165,7 +184,10 @@ describe('Users Microservice (e2e)', () => {
       mockPrismaService.user.findUniqueOrThrow.mockRejectedValue(error);
 
       await expect(
-        app.get('USERS_SERVICE').send(USERS_PATTERNS.FIND_ONE, findOneUserDto).toPromise()
+        app
+          .get('USERS_SERVICE')
+          .send(USERS_PATTERNS.FIND_ONE, findOneUserDto)
+          .toPromise(),
       ).rejects.toThrow('User not found');
     });
   });
@@ -178,7 +200,10 @@ describe('Users Microservice (e2e)', () => {
 
       mockPrismaService.user.update.mockResolvedValue(updatedUser);
 
-      const result = await app.get('USERS_SERVICE').send(USERS_PATTERNS.UPDATE, payload).toPromise();
+      const result = await app
+        .get('USERS_SERVICE')
+        .send(USERS_PATTERNS.UPDATE, payload)
+        .toPromise();
 
       expect(prismaService.user.update).toHaveBeenCalledWith({
         where: { id: payload.id },
@@ -192,7 +217,10 @@ describe('Users Microservice (e2e)', () => {
     it('should remove a user', async () => {
       mockPrismaService.user.delete.mockResolvedValue(mockUser);
 
-      const result = await app.get('USERS_SERVICE').send(USERS_PATTERNS.REMOVE, 1).toPromise();
+      const result = await app
+        .get('USERS_SERVICE')
+        .send(USERS_PATTERNS.REMOVE, 1)
+        .toPromise();
 
       expect(prismaService.user.delete).toHaveBeenCalledWith({
         where: { id: 1 },
@@ -200,4 +228,4 @@ describe('Users Microservice (e2e)', () => {
       expect(result).toEqual(mockUser);
     });
   });
-}); 
+});

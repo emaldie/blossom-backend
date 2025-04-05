@@ -45,7 +45,7 @@ describe('UsersController', () => {
 
     controller = module.get<UsersController>(UsersController);
     service = module.get<UsersService>(UsersService);
-    
+
     // Reset mock before each test
     jest.clearAllMocks();
   });
@@ -56,14 +56,14 @@ describe('UsersController', () => {
 
   describe('create', () => {
     it('should create a user', async () => {
-      const createUserDto: CreateUserDto = { 
-        name: 'John Doe', 
-        email: 'john@example.com', 
-        password: '123456789' 
+      const createUserDto: CreateUserDto = {
+        name: 'John Doe',
+        email: 'john@example.com',
+        password: '123456789',
       };
-      
+
       const result = await controller.create(createUserDto);
-      
+
       expect(result).toEqual(mockUser);
       expect(service.create).toHaveBeenCalledWith(createUserDto);
     });
@@ -72,7 +72,7 @@ describe('UsersController', () => {
   describe('findAll', () => {
     it('should return an array of users', async () => {
       const result = await controller.findAll();
-      
+
       expect(result).toEqual(mockUsers);
       expect(service.findAll).toHaveBeenCalled();
     });
@@ -81,7 +81,7 @@ describe('UsersController', () => {
   describe('findOne', () => {
     it('should return a user by ID', async () => {
       const result = await controller.findOne('1');
-      
+
       expect(result).toEqual(mockUser);
       expect(service.findOne).toHaveBeenCalledWith(1);
     });
@@ -91,9 +91,9 @@ describe('UsersController', () => {
     it('should update a user', async () => {
       const updateUserDto: UpdateUserDto = { name: 'Updated Name' };
       const updatedUser = { ...mockUser, name: 'Updated Name' };
-      
+
       const result = await controller.update('1', updateUserDto);
-      
+
       expect(result).toEqual(updatedUser);
       expect(service.update).toHaveBeenCalledWith(1, updateUserDto);
     });
@@ -102,7 +102,7 @@ describe('UsersController', () => {
   describe('remove', () => {
     it('should delete a user', async () => {
       const result = await controller.remove('1');
-      
+
       expect(result).toEqual(mockUser);
       expect(service.remove).toHaveBeenCalledWith(1);
     });
